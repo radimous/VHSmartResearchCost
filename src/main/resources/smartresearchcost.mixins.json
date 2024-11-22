@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "smartresearchcost.refmap.json",
   "mixins": [
+    "MixinResearchTree"
   ],
   "client": [
   ],
