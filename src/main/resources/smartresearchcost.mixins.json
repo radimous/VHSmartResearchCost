@@ -8,6 +8,7 @@
     "MixinResearchTree"
   ],
   "client": [
+    "MixinResearchDialog"
   ],
   "injectors": {
     "defaultRequire": 1
