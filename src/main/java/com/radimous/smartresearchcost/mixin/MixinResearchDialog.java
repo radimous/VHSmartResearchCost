@@ -57,7 +57,7 @@ public class MixinResearchDialog {
         Research research = ModConfigs.RESEARCHES.getByName(this.researchName);
         if (research == null || ResearchTree.isPenalty || Smartresearchcost.teamResearches == null
             // server swapped or it is outdated
-            || !Smartresearchcost.teamResearches.keySet().equals(new HashSet<PlayerReference>(instance.getResearchShares())){
+            || !Smartresearchcost.teamResearches.keySet().equals(new HashSet<PlayerReference>(instance.getResearchShares()))){
             return instance.getTeamResearchCostIncreaseMultiplier();
         }
         int notUnlocked = 0;
