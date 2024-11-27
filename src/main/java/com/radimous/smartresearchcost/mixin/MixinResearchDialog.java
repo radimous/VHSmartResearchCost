@@ -55,7 +55,9 @@ public class MixinResearchDialog {
     @Redirect(method = "update", at = @At(value = "INVOKE", target = "Liskallia/vault/research/ResearchTree;getTeamResearchCostIncreaseMultiplier()F"))
     private float changeMultiplierInBrackets(ResearchTree instance) {
         Research research = ModConfigs.RESEARCHES.getByName(this.researchName);
-        if (research == null || ResearchTree.isPenalty) {
+        if (research == null || ResearchTree.isPenalty || Smartresearchcost.teamResearches == null
+            // server swapped or it is outdated
+            || !Smartresearchcost.teamResearches.keySet().equals(new HashSet<PlayerReference>(instance.getResearchShares())){
             return instance.getTeamResearchCostIncreaseMultiplier();
         }
         int notUnlocked = 0;
