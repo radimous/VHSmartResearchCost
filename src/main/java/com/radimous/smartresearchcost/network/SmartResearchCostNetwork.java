@@ -32,7 +32,7 @@ public class SmartResearchCostNetwork {
         CHANNEL = NetworkRegistry.ChannelBuilder.
             named(new ResourceLocation("smartresearchcost", "messages")).
             networkProtocolVersion(() -> PROTOCOL_VERSION).
-            clientAcceptedVersions(PROTOCOL_VERSION::equals).
+            clientAcceptedVersions(version -> true).
             serverAcceptedVersions(version -> true).
             simpleChannel();
 
