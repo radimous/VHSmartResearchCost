@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Mixin(value = ResearchDialog.class, remap = false)
@@ -34,8 +35,10 @@ public class MixinResearchDialog {
     }
 
     @Redirect(method = "update", at = @At(value = "INVOKE", target = "Liskallia/vault/research/ResearchTree;getResearchCost(Liskallia/vault/research/type/Research;)I"))
-    private int doNotIncreaseIfAlreadyResearched(ResearchTree instance, Research research) {
-        if (Smartresearchcost.teamResearches == null) {
+    private int changeResearchCost(ResearchTree instance, Research research) {
+        if (Smartresearchcost.teamResearches == null
+            // server swapped or it is outdated
+            || !Smartresearchcost.teamResearches.keySet().equals(new HashSet<PlayerReference>(instance.getResearchShares()))) {
             return instance.getResearchCost(research);
         }
         var treeCopy = new ResearchTree(instance.serializeNBT());
@@ -50,7 +53,7 @@ public class MixinResearchDialog {
     }
 
     @Redirect(method = "update", at = @At(value = "INVOKE", target = "Liskallia/vault/research/ResearchTree;getTeamResearchCostIncreaseMultiplier()F"))
-    private float doNotIncreaseIfAlreadyResearched(ResearchTree instance) {
+    private float changeMultiplierInBrackets(ResearchTree instance) {
         Research research = ModConfigs.RESEARCHES.getByName(this.researchName);
         if (research == null || ResearchTree.isPenalty) {
             return instance.getTeamResearchCostIncreaseMultiplier();
