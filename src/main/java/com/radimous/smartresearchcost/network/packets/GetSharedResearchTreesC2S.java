@@ -8,9 +8,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -45,9 +43,9 @@ public class GetSharedResearchTreesC2S {
             if (ow == null) {
                 return;
             }
-            Map<PlayerReference,ResearchTree> researchTrees = new HashMap<>();
+            Map<PlayerReference, ResearchTree> researchTrees = new HashMap<>();
             var researchData = PlayerResearchesData.get(ow);
-            var resTree  = researchData.getResearches(sender.getUUID());
+            var resTree = researchData.getResearches(sender.getUUID());
             var shares = resTree.getResearchShares();
             for (PlayerReference playerReference : shares) {
                 var researches = PlayerResearchesData.get(ow).getResearches(playerReference.getId());

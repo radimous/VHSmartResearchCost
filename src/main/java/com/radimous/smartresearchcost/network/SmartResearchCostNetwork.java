@@ -11,12 +11,6 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 public class SmartResearchCostNetwork {
 
-    /* TODO: debug
-    * [Render thread/ERROR] [minecraft/BlockableEventLoop]: Error executing task on Client
-    * java.lang.IndexOutOfBoundsException: null
-    */
-    //TODO: check how it behaves when only on single side
-
     private static final String PROTOCOL_VERSION = "1";
 
     private static SimpleChannel CHANNEL;

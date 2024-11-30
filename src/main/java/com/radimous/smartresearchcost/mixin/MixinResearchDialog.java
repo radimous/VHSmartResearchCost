@@ -21,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -38,7 +37,8 @@ public class MixinResearchDialog {
     private int changeResearchCost(ResearchTree instance, Research research) {
         if (Smartresearchcost.teamResearches == null
             // server swapped or it is outdated
-            || !Smartresearchcost.teamResearches.keySet().equals(new HashSet<PlayerReference>(instance.getResearchShares()))) {
+            || !Smartresearchcost.teamResearches.keySet()
+            .equals(new HashSet<PlayerReference>(instance.getResearchShares()))) {
             return instance.getResearchCost(research);
         }
         var treeCopy = new ResearchTree(instance.serializeNBT());
@@ -57,7 +57,8 @@ public class MixinResearchDialog {
         Research research = ModConfigs.RESEARCHES.getByName(this.researchName);
         if (research == null || ResearchTree.isPenalty || Smartresearchcost.teamResearches == null
             // server swapped or it is outdated
-            || !Smartresearchcost.teamResearches.keySet().equals(new HashSet<PlayerReference>(instance.getResearchShares()))){
+            || !Smartresearchcost.teamResearches.keySet()
+            .equals(new HashSet<PlayerReference>(instance.getResearchShares()))) {
             return instance.getTeamResearchCostIncreaseMultiplier();
         }
         int notUnlocked = 0;
@@ -71,7 +72,8 @@ public class MixinResearchDialog {
     }
 
     @Inject(method = "lambda$update$2", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;disableDepthTest()V", remap = true), locals = LocalCapture.CAPTURE_FAILSOFT)
-    public void showResearchedInPlayerList(Button btn, PoseStack poseStack, int mouseX, int mouseY, CallbackInfo ci, List<Component> shareList) {
+    public void showResearchedInPlayerList(Button btn, PoseStack poseStack, int mouseX, int mouseY, CallbackInfo ci,
+                                           List<Component> shareList) {
         if (Smartresearchcost.teamResearches != null) {
             shareList.clear();
             shareList.add(new TextComponent("Sharing new researches with:"));

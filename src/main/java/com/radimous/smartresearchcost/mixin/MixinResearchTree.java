@@ -1,11 +1,9 @@
 package com.radimous.smartresearchcost.mixin;
 
-import com.radimous.smartresearchcost.Smartresearchcost;
 import iskallia.vault.research.ResearchTree;
 import iskallia.vault.research.type.Research;
 import iskallia.vault.util.PlayerReference;
 import iskallia.vault.world.data.PlayerResearchesData;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
